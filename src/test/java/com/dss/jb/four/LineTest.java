@@ -1,10 +1,9 @@
-package com.dss.jb;
+package com.dss.jb.four;
 
 /**
  * @author arolonss
  *
  */
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -22,9 +21,8 @@ public class LineTest {
   private Line lOne = new Line(1, 1, 3, 4);
   private Line lTwo = new Line(8, 7, 9, 9);
   private Line lThree = new Line(3, 6, 7, -2);
-  private Line lFour = new Line(0, 0, 6, 7);
-  private Line lFive = new Line(4, 3, 1, 1);
-  private Line lSix = new Line(5, 4, 2, 2);
+  private Line lFour = new Line(5, 5, 7, 7);
+
   /*
    * delta - the maximum delta between expected and actual for which both numbers
    * are still considered equal.
@@ -33,33 +31,22 @@ public class LineTest {
 
   @Test
   public void getSlopeTest() {
-
-    assertEquals(1.5, lOne.getSlope(), DELTA);
-    assertEquals(2.0, lTwo.getSlope(), DELTA);
-    assertEquals(-2.0, lThree.getSlope(), DELTA);
-    assertEquals(1.0, lFour.getSlope(), DELTA);
-    assertEquals(-6.0, lFive.getSlope(), DELTA);
-
+    // x0 1, y0 3, x1 1, y1 4 = 1 / 0 = 0
+    assertEquals(1.0, lOne.getSlope(), DELTA);
+    assertEquals(1.0, lTwo.getSlope(), DELTA);
+    // 2 / 1 = 1
   }
 
   @Test
   public void getDistanceTest() {
-
-    assertEquals(Math.sqrt(13.0), lOne.getDistance(), DELTA);
-    assertEquals(Math.sqrt(5.0), lTwo.getDistance(), DELTA);
-    assertEquals(Math.sqrt(80.0), lThree.getDistance(), DELTA);
-    assertEquals(Math.sqrt(85.0), lFour.getDistance(), DELTA);
-    assertEquals(Math.sqrt(13.0), lFive.getDistance(), DELTA);
-
+    assertEquals(Math.sqrt(2.0), lTwo.getDistance(), DELTA);
   }
 
-  @Test
   public void parallelToTest() {
-    assertFalse(lOne.parallelTo(lTwo));
-    assertFalse(lTwo.parallelTo(lOne));
-    assertFalse(lThree.parallelTo(lFour));
-
-    assertTrue(lFive.parallelTo(lSix));
+    assertTrue(lOne.parallelTo(lTwo));
+    assertTrue(lTwo.parallelTo(lOne));
+    assertTrue(lThree.parallelTo(lFour));
+    assertTrue(lFour.parallelTo(lThree));
   }
 
 }
