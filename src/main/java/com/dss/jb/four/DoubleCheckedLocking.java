@@ -6,7 +6,7 @@ public class DoubleCheckedLocking {
    */
 
   // volatile if public
-  private static DoubleCheckedLocking instance = null;
+  private static volatile DoubleCheckedLocking instance = null;
 
   private DoubleCheckedLocking() {
 
@@ -20,11 +20,11 @@ public class DoubleCheckedLocking {
     // like wise, we could block the entire class. but we have a private constructr
     // so we dont need it
     if (instance == null) {
-      synchronized(instance) {
+      synchronized (DoubleCheckedLocking.class) {
         if (instance == null) {
           instance = new DoubleCheckedLocking();
         }
-      }  
+      }
     }
     return instance;
   }
