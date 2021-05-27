@@ -20,9 +20,10 @@ public class DeadLock {
     Runnable myRunnable = () -> {
       try {
         synchronized (lockA) {
+          System.out.println("myRunnable is going sleep");
           Thread.sleep(2000);
           synchronized (lockB) {
-            System.out.println("runnable not locked");
+            System.out.println("myRunnable not locked");
           }
         }
       } catch (Exception e) {
@@ -33,9 +34,10 @@ public class DeadLock {
     Runnable myRunnable2 = () -> {
       try {
         synchronized (lockB) {
+          System.out.println("myRunnable2 is going to sleep");
           Thread.sleep(2000);
           synchronized (lockA) {
-            System.out.println("runnable2 not locked");
+            System.out.println("myRunnable2 not locked");
           }
         }
       } catch (Exception e) {
