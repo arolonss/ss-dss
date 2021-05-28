@@ -1,10 +1,24 @@
 package com.dss.jb.four;
 
-public class ConsumerThread implements Runnable {
+import java.util.ArrayList;
+
+public class ConsumerThread extends Thread {
+  private ProducerThread producer;
+
+  public ConsumerThread(ProducerThread producer) {
+    this.producer = producer;
+  }
 
   @Override
   public void run() {
-    System.out.println("Running ConsumerThread");
+    try {
+      while (true) {
+        Integer boundedBuffer = producer.take();
+        System.out.println(Thread.currentThread().getName() + "took this.");
+      }
+    } catch (Exception e) {
+      // TODO: handle exception
+    }
   }
 
 }

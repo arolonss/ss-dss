@@ -1,5 +1,10 @@
 package com.dss.jb.four;
 
+import java.util.ArrayList;
+import java.util.List;
+
+// import java.util.concurrent.ArrayBlockingQueue;
+// import java.util.concurrent.BlockingQueue;
 
 public class ProAndConThreads {
   /*
@@ -8,14 +13,17 @@ public class ProAndConThreads {
    * items. For communacation purposes, both threads have access to a bounded
    * buffer which is basically an array.
    */
-  int[] numArr = {};
 
   public static void main(String[] args) {
-    Runnable proThread = new ProducerThread();
-    Runnable conThread = new ConsumerThread();
-    Thread pt = new Thread(proThread);
-    Thread ct = new Thread(conThread);
+
+    ProducerThread pt = new ProducerThread();
+
+    pt.setName("producer1");
     pt.start();
+
+    ConsumerThread ct = new ConsumerThread(pt);
+
+    ct.setName("consumer1");
     ct.start();
   }
 
