@@ -3,12 +3,10 @@ package com.dss.jb.four;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class ProducerThread extends Thread {
 
-  private static final int max = 10;
+  private static final int MAX = 10;
   private final List<Integer> boundedBuffer = new ArrayList<>();
 
   @Override
@@ -18,26 +16,38 @@ public class ProducerThread extends Thread {
         put();
       }
     } catch (Exception e) {
-
+        e.getStackTrace();
     }
 
   }
 
   // not able to access put() at the same time as another thread
   public synchronized void put() {
-    while (boundedBuffer.size() == max) {
-      wait();
+    while (boundedBuffer.size() == MAX) {
+      System.out.println("buffer full. WAiting for Consumer");
+      try {
+        wait();
+      } catch (InterruptedException e) {
+        e.getStackTrace();
+      }
+      System.out.println("producer got notified from consumer ");
     }
     Random num = new Random(100);
     boundedBuffer.add(num.nextInt());
     System.out.println("Producer added number to buffer");
-    notify();
+    notifyAll();
+
   }
 
-  public synchronized Integer take() throws Exception {
-    notify();
+  public synchronized Integer take() {
+    notifyAll();
     while (boundedBuffer.isEmpty()) {
-      wait();
+      try {
+		wait();
+	} catch (InterruptedException e) {
+		
+		e.printStackTrace();
+	}
     }
     Integer num = boundedBuffer.get(0);
     boundedBuffer.remove(num);

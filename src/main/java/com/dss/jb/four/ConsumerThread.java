@@ -1,7 +1,5 @@
 package com.dss.jb.four;
 
-import java.util.ArrayList;
-
 public class ConsumerThread extends Thread {
   private ProducerThread producer;
 
@@ -14,10 +12,11 @@ public class ConsumerThread extends Thread {
     try {
       while (true) {
         Integer boundedBuffer = producer.take();
-        System.out.println(Thread.currentThread().getName() + "took this.");
+        System.out.println(Thread.currentThread().getName() + "took this " + boundedBuffer + ".");
+        Thread.sleep(200);
       }
     } catch (Exception e) {
-      // TODO: handle exception
+      e.getStackTrace();
     }
   }
 
