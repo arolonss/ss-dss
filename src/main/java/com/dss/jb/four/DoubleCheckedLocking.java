@@ -5,7 +5,7 @@ public class DoubleCheckedLocking {
    * Assignment 1 Implement a Singleton with double checked locking.
    */
 
-  // volatile if public
+  // make sure to put volatile if public
   private static volatile DoubleCheckedLocking instance = null;
 
   private DoubleCheckedLocking() {
